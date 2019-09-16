@@ -18,7 +18,7 @@ function! taskwarrior#list(...) abort
     " and matchstr later
     "
     let b:task_show_info        = system(g:tw_cmd." show")
-    let b:current_task_info     = system(g:tw_cmd.' '.b:rc.' '.b:filter.' '.b:command)
+    let b:current_task_info     = system(g:tw_cmd.' '.b:rc.' '.shellescape(b:filter).' '.b:command)
 
     if b:type == 'special'
         setlocal buftype=nofile
@@ -207,9 +207,9 @@ endfunction
 
 function! taskwarrior#system_call(filter, command, args, mode)
   if a:mode == 'silent'
-    call system(g:tw_cmd.' '.a:filter.' '.a:command.' '.a:args)
+    call system(g:tw_cmd.' '.shellescape(a:filter).' '.a:command.' '.a:args)
   else " echo the output
-    echo system(g:tw_cmd.' '.a:filter.' '.a:command.' '.a:args)
+    echo system(g:tw_cmd.' '.shellescape(a:filter).' '.a:command.' '.a:args)
   endif
 
   call taskwarrior#refresh()

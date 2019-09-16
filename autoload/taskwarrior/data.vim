@@ -139,7 +139,7 @@ endfunction
 function! taskwarrior#data#get_stats(method)
   let dict = {}
   if a:method != 'current'
-    let stat = split(system(g:tw_cmd.' '.a:method.' stats'), '\n')
+    let stat = split(system(g:tw_cmd.' '.shellescape(a:method).' stats'), '\n')
   else
     let uuid = taskwarrior#data#get_uuid()
     let stat = split(system(g:tw_cmd.' '.taskwarrior#data#get_uuid().' stats'), '\n')
